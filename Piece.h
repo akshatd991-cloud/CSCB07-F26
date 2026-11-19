@@ -13,6 +13,7 @@ class Piece{
     std::string name;
 
     public:
+        Piece();
         virtual *Square Scan() = 0;
         virtual void Move();
         Square* getPos() const;
