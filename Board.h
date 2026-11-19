@@ -7,10 +7,13 @@ class Board{
 
     public:
         Board();
+        Board(const Board &other);
+        Board(Board &&other);
+        Board &operator=(const Board &other);
+        Board &operator=(Board &&other);
+        ~Board();
         bool isCheck();
-        Board getBoard();
-        Board setBoard();
-        void copyBoard();
+        Square** getBoard();
 };
 
 std::ostream& operator<<(std::ostream& out, Board* board);

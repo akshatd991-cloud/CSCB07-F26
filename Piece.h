@@ -18,6 +18,7 @@ class Piece{
         virtual void Move();
         Square* getPos() const;
         bool getIsChecked() const;
+        std::string getName() const;
 };
 
 
