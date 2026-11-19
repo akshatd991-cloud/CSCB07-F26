@@ -12,8 +12,15 @@ class Square{
 
     public:
         Square(int posX = 1, int posY = 1);
+        // Square(const Square &other);
+        // Square(Square &&other);
 
-    
+        // Square &operator=(const Square &other);
+        // Square &operator=(Square &&other);
+
+        // ~Square();
+
+        Piece* getOccupant() const;
 };
 
 #endif

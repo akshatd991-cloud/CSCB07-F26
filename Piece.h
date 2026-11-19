@@ -17,6 +17,7 @@ class Piece{
         virtual Square* Scan() = 0;
         virtual void Move();
         Square* getPos() const;
+        bool getIsChecked() const;
 };
 
 

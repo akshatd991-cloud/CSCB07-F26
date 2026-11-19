@@ -8,3 +8,7 @@ Square::Square(int posX = 1, int posY = 1): posX{posX}, posY{posY}, occupant{nul
     coordinates += cooH;
     coordinates += std::to_string(posY);
 }
+
+Piece *Square::getOccupant() const{
+    return occupant;
+}
