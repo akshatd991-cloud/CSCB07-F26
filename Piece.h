@@ -5,20 +5,20 @@
 class Square;
 
 class Piece{
-    int side;
+    int side; //0 white, 1 black
     Square* currentPos;
     Square** legalMoves;
     int pointVal;
     bool isChecked;
-    std::string name;
+    char name; //CONVENTION : always put the name is lowercase. Uppercase is handled but the getName function
 
     public:
-        Piece();
+        Piece(char name, int value, int side);
         virtual Square* Scan() = 0;
         virtual void Move();
         Square* getPos() const;
         bool getIsChecked() const;
-        std::string getName() const;
+        char getName() const;
 };
 
 
