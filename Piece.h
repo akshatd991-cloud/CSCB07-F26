@@ -14,7 +14,7 @@ class Piece{
 
     public:
         Piece();
-        virtual *Square Scan() = 0;
+        virtual Square* Scan() = 0;
         virtual void Move();
         Square* getPos() const;
 };
