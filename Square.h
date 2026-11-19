@@ -1,6 +1,7 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 #include <string>
+#include <iostream>
 #include "Piece.h"
 
 class Square{
@@ -8,6 +9,9 @@ class Square{
     Piece* occupant;
     int posX;
     int posY;
+
+    public:
+        Square(int posX = 1, int posY = 1);
 
     
 };

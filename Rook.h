@@ -3,7 +3,7 @@
 #include "Piece.h"
 #include <string>
 
-class ROOK : public Piece {
+class Rook : public Piece {
 public:
     Rook(int side, Square* startPos);
     Square* Scan() override;

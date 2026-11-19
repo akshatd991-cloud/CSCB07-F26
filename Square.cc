@@ -1,0 +1,10 @@
+#include "Square.h"
+#include "Piece.h"
+#include <string>
+
+Square::Square(int posX = 1, int posY = 1): posX{posX}, posY{posY}, occupant{nullptr} 
+{
+    char cooH = 96 + posX; //horizontal coordinates (97 being ASCII for 'a')
+    coordinates += cooH;
+    coordinates += std::to_string(posY);
+}
