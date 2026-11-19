@@ -5,7 +5,7 @@
 
 class ROOK : public Piece {
 public:
-    ROOK(int side, Square* startPos);
+    Rook(int side, Square* startPos);
     Square* Scan() override;
     void Castle();
      
