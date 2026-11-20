@@ -14,7 +14,9 @@ class GameMaster{
         GameMaster();
         void drawBoard();
         bool checkMate();
-        void takeInput(std::string input);
+        void startGame(std::string p1, std::string p2);
+        void endGame();
+
 };
 
 #endif

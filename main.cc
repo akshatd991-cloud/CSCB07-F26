@@ -3,6 +3,7 @@
 #include "Piece.h"
 #include "Board.h"
 #include "Square.h"
+#include "GameMaster.h"
 
 using namespace std;
 
@@ -21,7 +22,9 @@ Commands strToCommand(const string& input){
 }
 
 int main(){
+    GameMaster* gm = new GameMaster;
     string command;
+    string p1, p2;
     int state = 0; //0, in menu - 1, in game - 2, in setup 
 
     while (true){
@@ -31,6 +34,9 @@ int main(){
         switch (strToCommand(command)){
             case Commands::Game:
                 cout<< "Game starting" << endl;
+                cin >> p1;
+                cin >> p2;
+                gm->startGame(p1, p2);
                 break;
             case Commands::Move:
                 cout << "Move" << endl;
