@@ -21,6 +21,7 @@ class Square{
         // ~Square();
 
         Piece* getOccupant() const;
+        void setOccupant(Piece* piece);
 };
 
 #endif

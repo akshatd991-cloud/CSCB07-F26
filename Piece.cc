@@ -1,5 +1,4 @@
 #include "Piece.h"
-#include <string>
 
 Piece::Piece(char name, int value, int side): 
     side{side}, pointVal{value}, name{name}, currentPos{nullptr}, legalMoves{nullptr}, isChecked{false} {}

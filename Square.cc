@@ -12,3 +12,11 @@ Square::Square(int posX = 1, int posY = 1): posX{posX}, posY{posY}, occupant{nul
 Piece *Square::getOccupant() const{
     return occupant;
 }
+
+void Square::setOccupant(Piece* piece){
+    if (occupant == nullptr){
+        occupant = piece;
+    } else {
+        //Check for take move, or reject and do nothing
+    }
+}
