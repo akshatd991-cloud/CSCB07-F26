@@ -16,7 +16,7 @@ class GameMaster{
         bool checkMate();
         void startGame(std::string p1, std::string p2);
         void endGame();
-
+        void nextMove();
 };
 
 #endif
