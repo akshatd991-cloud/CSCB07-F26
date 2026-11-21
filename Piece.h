@@ -18,6 +18,7 @@ class Piece{
         Square* getPos() const;
         bool getIsChecked() const;
         char getName() const;
+        int getSide() const;
 };
 
 

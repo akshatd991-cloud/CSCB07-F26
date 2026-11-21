@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <unordered_map>
 #include "Piece.h"
 #include "Board.h"
 #include "Square.h"
@@ -18,7 +19,14 @@ enum class Commands{
 };
 
 Commands strToCommand(const string& input){
-    return Commands::Unknown;
+    const unordered_map<string, Commands> conversion = {
+        {"game", Commands::Game},
+        {"move", Commands::Move},
+        {"setup", Commands::Setup},
+        {"resign", Commands::Resign}
+    };
+
+    return (conversion.contains(input)) ? conversion.at(input) : Commands::Unknown;
 }
 
 int main(){
@@ -33,10 +41,10 @@ int main(){
 
         switch (strToCommand(command)){
             case Commands::Game:
-                cout<< "Game starting" << endl;
                 cin >> p1;
                 cin >> p2;
                 gm->startGame(p1, p2);
+                cout<< "Game starting" << endl;
                 break;
             case Commands::Move:
                 cout << "Move" << endl;

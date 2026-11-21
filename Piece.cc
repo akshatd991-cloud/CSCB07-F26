@@ -15,3 +15,7 @@ char Piece::getName() const{
     if (side == 0) return (name - 35); //It should put the character in upprercase
     return name;
 }
+
+int Piece::getSide() const{
+    return side;
+}
