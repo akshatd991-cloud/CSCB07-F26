@@ -104,9 +104,9 @@ void Board::setupBoard(){ //Setup a classic chess board
                     boardArr[i]->setOccupant(new King((i<32) ? 0 : 1, boardArr[i]));
                     break;
                 default:
-                    if (i > 7 && i < 15){
+                    if (i > 7 && i < 15){ //Pawns for white
                         boardArr[i]->setOccupant(new Pawn(0, boardArr[i]));
-                    } else if (i < 56 && i > 48){
+                    } else if (i < 56 && i > 48){ //Pawns for black
                         boardArr[i]->setOccupant(new Pawn(1, boardArr[i]));
                     }
             }
@@ -117,9 +117,9 @@ void Board::setupBoard(){ //Setup a classic chess board
 
 std::ostream& operator<<(std::ostream& out, Board* board){
     Piece* current;
-    for (int i = 8; i>0; --i){
+    for (int i = 7; i>=0; --i){
         out << i << " ";
-        for (int j=8; j>0; --j){
+        for (int j=7; j>=0; --j){
             current = board->getBoard()[8*i + j]->getOccupant();
             if (current == nullptr) {
                 out << ((i+j)%2 == 1) ? " ": "-";
