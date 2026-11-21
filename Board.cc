@@ -7,7 +7,7 @@
 Board::Board(): boardArr{new Square*[64]}
 {
     for (int i = 0; i<8; ++i){
-        for (int j=0; i<8; ++j){
+        for (int j=0; j<8; ++j){
             boardArr[8*i + j] = new Square(i, j);
         }
     }
@@ -119,7 +119,7 @@ std::ostream& operator<<(std::ostream& out, Board* board){
     Piece* current;
     for (int i = 8; i>0; --i){
         out << i << " ";
-        for (int j=8; i>0; --j){
+        for (int j=8; j>0; --j){
             current = board->getBoard()[8*i + j]->getOccupant();
             if (current == nullptr) {
                 out << ((i+j)%2 == 1) ? " ": "-";
