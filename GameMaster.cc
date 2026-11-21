@@ -1,5 +1,7 @@
 #include "GameMaster.h"
 #include <iostream>
+#include <typeinfo>
+#include <string>
 #include "HumanPlayer.h"
 #include "ComPlayer.h"
 
@@ -14,7 +16,7 @@ void GameMaster::drawBoard(){
 }
 
 bool GameMaster::checkMate(){
-    return false;
+    return false; //Temporary
 }
 
 void GameMaster::startGame(std::string p1, std::string p2){
@@ -33,6 +35,7 @@ void GameMaster::startGame(std::string p1, std::string p2){
     }
 
     isPlaying = true;
+    gameBoard->setupBoard();
 }
 
 void GameMaster::endGame(){
@@ -46,4 +49,25 @@ void GameMaster::endGame(){
 
     delete gameBoard;
     gameBoard = new Board;
+}
+
+void GameMaster::nextMove(){
+    string startSquare, endSquare;
+    if (turn%2 == 0){
+        //Player 1 turn
+        if (typeid(*player1) == typeid(HumanPlayer)){
+            //Player 1 is human
+            
+        } else {
+            //Player one is computer
+        }
+    }
+    else{
+        //Player 2 turn
+        if (typeid(*player2) == typeid(HumanPlayer)){
+            //Player 1 is human
+        } else {
+            //Player one is computer
+        }
+    }
 }

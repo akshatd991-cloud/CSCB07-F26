@@ -14,6 +14,7 @@ class Board{
         ~Board();
         bool isCheck();
         Square** getBoard();
+        void setupBoard();
 };
 
 std::ostream& operator<<(std::ostream& out, Board* board);
