@@ -11,7 +11,7 @@ class Square{
     int posY;
 
     public:
-        explicit Square(int posX = 1, int posY = 1); //Explicit to avoid having a tuple casted into a square
+        explicit Square(int posX = 0, int posY = 0); //Explicit to avoid having a tuple casted into a square
         // Square(const Square &other);
         // Square(Square &&other);
 
