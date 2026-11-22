@@ -1,5 +1,6 @@
 #ifndef PIECE_H
 #define PIECE_H
+#include "Board.h"
 
 class Square;
 
@@ -15,7 +16,7 @@ class Piece{
     
     public:
         Piece(char name, int value, int side, Square * startPos);
-        virtual void Scan() = 0;
+        virtual void Scan(Board* gameBoard) = 0;
         virtual void Move();
         Square* getPos() const;
         bool getIsChecked() const;
@@ -28,14 +29,14 @@ class Piece{
 class Bishop : public Piece {
 public:
     Bishop(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
      
 };
 
 class King : public Piece {
 public:
     King(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
     void Castle();
      
 };
@@ -43,28 +44,28 @@ public:
 class Knight : public Piece {
 public:
     Knight(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
      
 };
 
 class Pawn : public Piece {
 public:
     Pawn(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
     void EnPassant();   
 };
 
 class Queen : public Piece {
 public:
     Queen(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
      
 };
 
 class Rook : public Piece {
 public:
     Rook(int side, Square* startPos);
-    void Scan() override;
+    void Scan(Board* gameBoard) override;
     void Castle();
      
 };

@@ -38,7 +38,8 @@ int Piece::getValue() const{
 
 Pawn::Pawn(int side, Square* startPos) : Piece('p', 1, side, startPos) {}
 
-void Pawn::Scan(){
+void Pawn::Scan(Board* gameBoard){
+    legalMoves = new Square*[4];
     int currCoo = currentPos->getCoordinates();
     int toCheck[4]; //holds square that need to be checked before being added to legalMoves (max 4 for a pawn)
     if (getSide() == 0){ //white
@@ -72,13 +73,36 @@ void Pawn::Scan(){
         }
     }
 
+    const int sideMult = (getSide() == 0) ? 1 : -1; //Here to reverse the numbers if on black side
+
+    Piece* piece;
+    int lastLegalMove = 0;
     for (int square : toCheck){
         if (square == -1){
             //No need to check
-            
         } else {
             //TODO, checks presence and potential side of the piece on the destination
-
+            piece = gameBoard->getBoard()[square]->getOccupant();
+            if (piece != nullptr){
+                if (piece->getSide() == getSide()){
+                    //On the same team, cannot move nor take, not legal move
+                } else {
+                    if (currCoo - square == sideMult*7 || currCoo - square == sideMult*9){ //NE and NW, we can take
+                        legalMoves[lastLegalMove] = piece->getPos();
+                        lastLegalMove++;
+                    }
+                }
+            } else {
+                if (currCoo - square == sideMult*16) { //twice front, we check if there is a piece N
+                    if (gameBoard->getBoard()[currCoo + sideMult*8]->getOccupant() == nullptr) {
+                        legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                        lastLegalMove++;
+                    }
+                } else if (currCoo - square == sideMult*8){ //N
+                    legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                    lastLegalMove++;
+                }
+            }
             //For pawn only, move and take are not the same, so check for absence of piece for move and presence for take
         }
     }
@@ -94,7 +118,7 @@ void Pawn::EnPassant(){
 
 King::King(int side, Square* startPos) : Piece('k', 100, side, startPos) {}
 
-void King::Scan(){
+void King::Scan(Board* gameBoard){
 
 }
 
@@ -104,7 +128,7 @@ void King::Scan(){
 
 Queen::Queen(int side, Square* startPos) : Piece('q', 9, side, startPos) {}
 
-void Queen::Scan(){
+void Queen::Scan(Board* gameBoard){
 
 }
 
@@ -114,7 +138,7 @@ void Queen::Scan(){
 
 Rook::Rook(int side, Square* startPos) : Piece('r', 5, side, startPos) {}
 
-void Rook::Scan(){
+void Rook::Scan(Board* gameBoard){
 
 }
 
@@ -125,7 +149,7 @@ void Rook::Scan(){
 
 Knight::Knight(int side, Square* startPos) : Piece('n', 3, side, startPos) {}
 
-void Knight::Scan(){
+void Knight::Scan(Board* gameBoard){
 
 }
 
@@ -136,7 +160,7 @@ void Knight::Scan(){
 
 Bishop::Bishop(int side, Square* startPos) : Piece('b', 3, side, startPos) {}
 
-void Bishop::Scan(){
+void Bishop::Scan(Board* gameBoard){
 
 }
 
