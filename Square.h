@@ -22,6 +22,7 @@ class Square{
 
         Piece* getOccupant() const;
         void setOccupant(Piece* piece);
+        int getCoordinates() const;
 };
 
 #endif

@@ -71,15 +71,13 @@ void GameMaster::nextMove(){
             } else {
                 //The inputs are correct, process the move
 
-                //TODO, convert the input from "a1" to "1"
+                //TODO, convert the input from "a1" to "0"
 
                 //TODO, check if there is a piece on the start square
 
                 //TODO, check the side of the piece
 
-                //TODO, check if the destination is a valid move
-
-                //TODO, checks presence and potential side of the piece on the destination
+                //TODO, check if the destination is a valid move (using Scan and legalMoves)
 
                 //TODO, execute the move if everything passes
             }

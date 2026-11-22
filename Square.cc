@@ -20,3 +20,7 @@ void Square::setOccupant(Piece* piece){
         //Check for take move, or reject and do nothing
     }
 }
+
+int Square::getCoordinates() const{
+    return (8*posY + posX);
+}
