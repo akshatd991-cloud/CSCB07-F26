@@ -64,18 +64,46 @@ void GameMaster::nextMove(){
 
             if (startSquare.length() != 2 || endSquare.length() != 2){
                 //Wrong inputs
+                return;
             } else if (letters.find(startSquare[0]) == string::npos || letters.find(startSquare[0]) == string::npos){
                 //Wrong format for letters
+                return;
             } else if (numbers.find(startSquare[1]) == string::npos || numbers.find(startSquare[1]) == string::npos){
                 //Wrong format for number
+                return;
             } else {
                 //The inputs are correct, process the move
 
                 //TODO, convert the input from "a1" to "0"
+                
+                // Convert coordinates
+                int startX = startSquare[0] - 'a';
+                int startY = startSquare[1] - '1';
+                int endX = endSquare[0] - 'a';
+                int endY = endSquare[1] - '1';
+
+                // Convert coordinates to board indices
+                int startIndex = 8 * startY + startX;
+                int endIndex = 8 * endY + endX;
+
 
                 //TODO, check if there is a piece on the start square
+                Square* start = gameBoard->getBoard()[startIndex];
+                Square* end = gameBoard->getBoard()[endIndex];
+                Piece* piece = start->getOccupant();
+                if (piece == nullptr){
+                    return;
+                }
 
                 //TODO, check the side of the piece
+                if (piece->getSide() != currentSide){
+                    return;
+                }
+
+                
+                // Scan possible moves
+                piece->Scan(gameBoard);
+
 
                 //TODO, check if the destination is a valid move (using Scan and legalMoves)
 
