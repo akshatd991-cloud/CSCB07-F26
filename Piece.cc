@@ -39,11 +39,12 @@ int Piece::getValue() const{
 Pawn::Pawn(int side, Square* startPos) : Piece('p', 1, side, startPos) {}
 
 void Pawn::Scan(Board* gameBoard){
+    if (legalMoves) delete[] legalMoves;
     legalMoves = new Square*[4];
     int currCoo = currentPos->getCoordinates();
-    int toCheck[4]; //holds square that need to be checked before being added to legalMoves (max 4 for a pawn)
+    int toCheck[4] = {-1}; //holds square that need to be checked before being added to legalMoves (max 4 for a pawn)
     if (getSide() == 0){ //white
-        if (currCoo > 7 && currCoo< 16){ //check if position is on the 2nd rank (squares 8 to 15)
+        if (currentPos->getPosY() == 1){ //check if position is on the 2nd rank (squares 8 to 15)
             //If second rank, we add 2 on front, NE and NW to legalMoves
             toCheck[0] = (currCoo == 8) ? -1 : currCoo + 7; //case 8 is A2, so no NE for this
             toCheck[1] = currCoo + 8; //N
@@ -55,10 +56,9 @@ void Pawn::Scan(Board* gameBoard){
             toCheck[0] = (currCoo%8 == 0) ? -1 : currCoo+7;
             toCheck[1] = currCoo + 8;
             toCheck[2] = (currCoo%8 == 7) ? -1 : currCoo+9;
-            toCheck[3] = -1; //No need to check twice in front
         }
     } else { //black, everything in reverse
-        if (currCoo > 48 && currCoo< 57){ //check if position is on the 7nd rank (squares 49 to 56)
+        if (currentPos->getPosY() == 6){ //check if position is on the 7nd rank (squares 49 to 56)
             toCheck[0] = (currCoo == 49) ? -1 : currCoo - 7; //case 56 is A7, so no SE for this
             toCheck[1] = currCoo - 8; //S
             toCheck[2] = (currCoo == 56) ? -1 : currCoo - 9; //case 15 is H2, so no SW for this
@@ -69,7 +69,6 @@ void Pawn::Scan(Board* gameBoard){
             toCheck[0] = (currCoo%8 == 0) ? -1 : currCoo-7;
             toCheck[1] = currCoo - 8;
             toCheck[2] = (currCoo%8 == 7) ? -1 : currCoo-9;
-            toCheck[3] = -1; //No need to check twice in frobacknt
         }
     }
 
@@ -119,6 +118,41 @@ void Pawn::EnPassant(){
 King::King(int side, Square* startPos) : Piece('k', 100, side, startPos) {}
 
 void King::Scan(Board* gameBoard){
+    if (legalMoves) delete[] legalMoves;
+    legalMoves = new Square*[8];
+    //We need to scan each square around him
+    int currCoo = currentPos->getCoordinates();
+    int toCheck[8] = {-1};
+    toCheck[0] = (currentPos->getPosX() == 0 || currentPos->getPosY() == 7) ? -1 : currCoo + 7;//NW
+    toCheck[1] = (currentPos->getPosY() == 7) ? -1 : currCoo + 8;//N
+    toCheck[2] = (currentPos->getPosX() == 7 || currentPos->getPosY() == 7) ? -1 : currCoo + 9;//NE
+
+    toCheck[3] = (currentPos->getPosX() == 0 || currentPos->getPosY() == 0) ? -1 : currCoo - 9;//SW
+    toCheck[4] = (currentPos->getPosY() == 0) ? -1 : currCoo - 8;//S
+    toCheck[5] = (currentPos->getPosX() == 7 || currentPos->getPosY() == 0) ? -1 : currCoo - 7;//SE
+
+    toCheck[6] = (currentPos->getPosX() == 0) ? -1 : currCoo - 1;//W
+    toCheck[7] = (currentPos->getPosX() == 7) ? -1 : currCoo + 1;//E
+
+    Piece* piece;
+    int lastLegalMove = 0;
+    for (int square : toCheck){
+        if (square == -1){
+            //No need to check
+        } else {
+            //TODO, checks presence and potential side of the piece on the destination
+            piece = gameBoard->getBoard()[square]->getOccupant();
+            if (piece != nullptr){
+                if (piece->getSide() == getSide()){
+                    //On the same team, cannot move nor take, not legal move
+                } else {
+                    //TODO, check for checks by going on this square
+                }
+            } else {
+                //TODO, same as above
+            }
+        }
+    }
 
 }
 

@@ -4,7 +4,7 @@
 
 Square::Square(int posX, int posY): posX{posX}, posY{posY}, occupant{nullptr} 
 {
-    char cooH = 96 + posX; //horizontal coordinates (97 being ASCII for 'a')
+    char cooH = 97 + posX; //horizontal coordinates (97 being ASCII for 'a', posX 0)
     coordinates += cooH;
     coordinates += std::to_string(posY);
 }
@@ -23,4 +23,12 @@ void Square::setOccupant(Piece* piece){
 
 int Square::getCoordinates() const{
     return (8*posY + posX);
+}
+
+int Square::getPosX() const{
+    return posX;
+}
+
+int Square::getPosY() const{
+    return posY;
 }
