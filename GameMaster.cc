@@ -52,6 +52,10 @@ void GameMaster::endGame(){
 }
 
 void GameMaster::nextMove(){
+    if (!isPlaying || player1 == nullptr || player2 == nullptr){
+        return;
+    }
+    
     string startSquare, endSquare;
     string letters = "abcdefgh";
     string numbers = "12345678";
@@ -63,7 +67,7 @@ void GameMaster::nextMove(){
             cin >> endSquare;
 
             if (startSquare.length() != 2 || endSquare.length() != 2){
-                //Wrong inputs
+                //Wrong inputs for length
                 return;
             } else if (letters.find(startSquare[0]) == string::npos || letters.find(startSquare[0]) == string::npos){
                 //Wrong format for letters
@@ -74,22 +78,19 @@ void GameMaster::nextMove(){
             } else {
                 //The inputs are correct, process the move
 
-                //TODO, convert the input from "a1" to "0"
-                
-                // Convert coordinates
+                //TODO, convert the input from "a1" to "0"           
                 int startX = startSquare[0] - 'a';
                 int startY = startSquare[1] - '1';
                 int endX = endSquare[0] - 'a';
-                int endY = endSquare[1] - '1';
-
-                // Convert coordinates to board indices
+                int endY = endSquare[1] - '1';// Convert coordinates
+                
                 int startIndex = 8 * startY + startX;
-                int endIndex = 8 * endY + endX;
-
+                int endIndex = 8 * endY + endX;// Convert coordinates to board indices
 
                 //TODO, check if there is a piece on the start square
                 Square* start = gameBoard->getBoard()[startIndex];
                 Square* end = gameBoard->getBoard()[endIndex];
+                
                 Piece* piece = start->getOccupant();
                 if (piece == nullptr){
                     return;
@@ -100,14 +101,14 @@ void GameMaster::nextMove(){
                     return;
                 }
 
-                
-                // Scan possible moves
-                piece->Scan(gameBoard);
-
-
                 //TODO, check if the destination is a valid move (using Scan and legalMoves)
+                piece->Scan(gameBoard);// Scan possible moves
+
+                //TODO, Check whether the move leaves own King in check
 
                 //TODO, execute the move if everything passes
+
+                //TODO, Update turn and redraw board
             }
         } else {
             //Player 1 is computer
