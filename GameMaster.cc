@@ -69,10 +69,10 @@ void GameMaster::nextMove(){
             if (startSquare.length() != 2 || endSquare.length() != 2){
                 //Wrong inputs for length
                 return;
-            } else if (letters.find(startSquare[0]) == string::npos || letters.find(startSquare[0]) == string::npos){
+            } else if (letters.find(startSquare[0]) == string::npos || letters.find(endSquare[0]) == string::npos){
                 //Wrong format for letters
                 return;
-            } else if (numbers.find(startSquare[1]) == string::npos || numbers.find(startSquare[1]) == string::npos){
+            } else if (numbers.find(startSquare[1]) == string::npos || numbers.find(endSquare[1]) == string::npos){
                 //Wrong format for number
                 return;
             } else {
@@ -97,7 +97,7 @@ void GameMaster::nextMove(){
                 }
 
                 //TODO, check the side of the piece
-                if (piece->getSide() != currentSide){
+                if (piece->getSide() != turn%2){ //0 is white, 1 is black
                     return;
                 }
 

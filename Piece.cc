@@ -146,10 +146,14 @@ void King::Scan(Board* gameBoard){
                 if (piece->getSide() == getSide()){
                     //On the same team, cannot move nor take, not legal move
                 } else {
-                    //TODO, check for checks by going on this square
+                    //TODO, check if the move creates a check for our team before accepting it
+                    legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                    lastLegalMove++;
                 }
             } else {
                 //TODO, same as above
+                legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                lastLegalMove++;
             }
         }
     }
@@ -179,12 +183,51 @@ void Rook::Scan(Board* gameBoard){
 #pragma endregion
 
 
-#pragma region KNIGTH
+#pragma region KNIGHT
 
 Knight::Knight(int side, Square* startPos) : Piece('n', 3, side, startPos) {}
 
 void Knight::Scan(Board* gameBoard){
+    if (legalMoves) delete[] legalMoves;
+    legalMoves = new Square*[8];
+    //We need to scan each square around him
+    int currCoo = currentPos->getCoordinates();
+    int toCheck[8] = {-1};
+    toCheck[0] = (currentPos->getPosX() == 0 || currentPos->getPosY() >= 6) ? -1 : currCoo + 15;//NW
+    toCheck[1] = (currentPos->getPosX() == 7 || currentPos->getPosY() >= 6) ? -1 : currCoo + 17;//NE
 
+    toCheck[2] = (currentPos->getPosX() >= 6 || currentPos->getPosY() == 7) ? -1 : currCoo + 10;//EN
+    toCheck[3] = (currentPos->getPosX() >= 6 || currentPos->getPosY() == 0) ? -1 : currCoo - 6;//ES
+
+    toCheck[4] = (currentPos->getPosX() == 0 || currentPos->getPosY() >= 1) ? -1 : currCoo - 15;//SE
+    toCheck[5] = (currentPos->getPosX() == 7 || currentPos->getPosY() >= 1) ? -1 : currCoo - 17;//SW
+
+    toCheck[6] = (currentPos->getPosX() >= 1 || currentPos->getPosY() == 0) ? -1 : currCoo - 10;//WS
+    toCheck[7] = (currentPos->getPosX() >= 1 || currentPos->getPosY() == 7) ? -1 : currCoo + 6;//WN
+
+    Piece* piece;
+    int lastLegalMove = 0;
+    for (int square : toCheck){
+        if (square == -1){
+            //No need to check
+        } else {
+            //TODO, checks presence and potential side of the piece on the destination
+            piece = gameBoard->getBoard()[square]->getOccupant();
+            if (piece != nullptr){
+                if (piece->getSide() == getSide()){
+                    //On the same team, cannot move nor take, not legal move
+                } else {
+                    //TODO, check if the move creates a check for our team before accepting it
+                    legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                    lastLegalMove++;
+                }
+            } else {
+                //TODO, same as above
+                legalMoves[lastLegalMove] = gameBoard->getBoard()[square];
+                lastLegalMove++;
+            }
+        }
+    }
 }
 
 #pragma endregion
